@@ -8,7 +8,7 @@ import {
   LineSeriesCanvas,
 } from 'react-vis';
 
-export default ({ data, staticLines }) => {
+export default ({ data, staticLines = [] }) => {
   return (
     <div>
       <XYPlot width={1800} height={600}>
