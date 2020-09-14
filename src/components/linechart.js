@@ -8,12 +8,24 @@ import {
   LineSeriesCanvas,
 } from 'react-vis';
 
-export default ({ data, staticLines = [] }) => {
+export default ({ data, staticLines = [], refContainer = null }) => {
   return (
     <div>
-      <XYPlot width={1800} height={600}>
-        <HorizontalGridLines />
-        <VerticalGridLines />
+      <XYPlot
+        width={
+          refContainer.current &&
+          refContainer.current.getBoundingClientRect().width
+        }
+        height={
+          refContainer.current &&
+          refContainer.current.getBoundingClientRect().height + 30
+        }
+      >
+        {/*
+         <HorizontalGridLines />
+        <VerticalGridLines /> 
+        */}
+
         <YAxis />
         <LineSeriesCanvas
           className='first-series'

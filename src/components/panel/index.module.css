@@ -1,0 +1,5 @@
+.Container {
+  border-radius: var(--radius);
+  background-color: var(--root);
+  box-shadow: var(--shadow);
+}

@@ -1,0 +1,26 @@
+.Container {
+  height: 60px;
+  width: 100%;
+  background-color: var(--root);
+  box-shadow: var(--shadow);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:active {
+  outline: none;
+  border: none;
+}
+
+button:hover {
+  transform: scale(1.04);
+}
+
+.Primary {
+  background-color: var(--primary);
+}

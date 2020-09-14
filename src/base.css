@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+}
+
+* {
+  font-family: 'Gilroy', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url(./static/fonts/Gilroy-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url(./static/fonts/Gilroy-ExtraBold.otf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url(./static/fonts/Gilroy-Light.otf);
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url(./static/fonts/Gilroy-Medium.ttf);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Gilroy;
+  src: url(./static/fonts/Gilroy-Regular.ttf);
+  font-weight: 400;
+}
+
+:root {
+  --bg1: #353a66;
+  --bg2: #212543;
+  --root: #383e6e;
+  --primary: #46a6f8;
+  --green: #72fb6f;
+  --red: #ff2d2d;
+
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --radius: 1em;
+}

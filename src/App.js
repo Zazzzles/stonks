@@ -1,5 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
+import {
+  Container,
+  ContentWrapper,
+  TableContainer,
+  TableTrayContainer,
+  ButtonContainer,
+  InfoContainer,
+  BuyButton,
+} from './index.module.css';
+
+import Button from './components/button';
+import Panel from './components/panel';
 import Linechart from './components/linechart';
 
 const varianceCap = 50; // upper limit of random varaince between tick values
@@ -8,6 +20,7 @@ const changeIntervalCap = 10; //  Upper limit of change interval size
 const rollingWindowsize = 200; //  Amount of data to be displayed
 
 function App() {
+  const chartContainer = useRef();
   const [data, setData] = useState([500]);
   const [started, setStarted] = useState(false);
   const [currentClock, setCurrentClock] = useState(null);
@@ -114,8 +127,32 @@ function App() {
   };
 
   return (
-    <div>
-      <Linechart data={formatData()} staticLines={generateStaticLines()} />
+    <div className={Container}>
+      <div className={ContentWrapper}>
+        <Panel className={TableContainer} reference={chartContainer}>
+          <Linechart
+            data={formatData()}
+            staticLines={generateStaticLines()}
+            refContainer={chartContainer}
+          />
+        </Panel>
+        <div className={TableTrayContainer}>
+          <Panel className={InfoContainer}>
+            <span>Current position:</span>
+            <span>Opening value: {position.openingValue}</span>
+            <span>Profit/loss: {position.profitLoss}</span>
+            <strong>Available fiunds: {funds}</strong>
+          </Panel>
+          <div className={ButtonContainer}>
+            <Button onClick={onBuy} primary label={'BUY'} />
+            <Button onClick={onSell} label={'SELL'} />
+          </div>
+        </div>
+        <button onClick={started ? stopLoop : startLoop}>Start</button>
+      </div>
+
+      {/*
+         <Linechart data={formatData()} staticLines={generateStaticLines()} />
       <button onClick={started ? stopLoop : startLoop}>Start</button>
       <button onClick={onBuy}>Buy</button>
       <button onClick={onSell}>Sell</button>
@@ -129,6 +166,7 @@ function App() {
         </>
       )}
       <strong>Available fiunds: {funds}</strong>
+      */}
     </div>
   );
 }
