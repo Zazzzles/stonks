@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   XYPlot,
@@ -6,9 +6,9 @@ import {
   HorizontalGridLines,
   VerticalGridLines,
   LineSeriesCanvas,
-} from 'react-vis'
+} from 'react-vis';
 
-export default ({ data }) => {
+export default ({ data, staticLines }) => {
   return (
     <div>
       <XYPlot width={1800} height={600}>
@@ -21,7 +21,15 @@ export default ({ data }) => {
           curve={'curveMonotoneX'}
           data={data}
         />
+        {staticLines.map((lineData) => (
+          <LineSeriesCanvas
+            className='first-series'
+            strokeWidth={4}
+            curve={'curveMonotoneX'}
+            data={lineData}
+          />
+        ))}
       </XYPlot>
     </div>
-  )
-}
+  );
+};
