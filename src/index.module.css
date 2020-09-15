@@ -25,12 +25,6 @@
   height: 135px;
 }
 
-.InfoContainer {
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-}
-
 .ButtonContainer {
   width: 30%;
   margin-left: 15px;

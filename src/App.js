@@ -7,12 +7,13 @@ import {
   TableTrayContainer,
   ButtonContainer,
   InfoContainer,
-  BuyButton,
 } from './index.module.css';
 
 import Button from './components/button';
 import Panel from './components/panel';
 import Linechart from './components/linechart';
+import CurrentPrice from './components/current-price';
+import OpenPosition from './components/open-position';
 
 const varianceCap = 50; // upper limit of random varaince between tick values
 const refresh = 100; //  interval
@@ -21,12 +22,13 @@ const rollingWindowsize = 200; //  Amount of data to be displayed
 
 function App() {
   const chartContainer = useRef();
-  const [data, setData] = useState([500]);
+  const [data, setData] = useState([55600]);
   const [started, setStarted] = useState(false);
   const [currentClock, setCurrentClock] = useState(null);
   const [currentValue, setCurrentValue] = useState(500);
   const [totalTicks, setTotalTicks] = useState(0);
   const [positionOpen, setPositionOpen] = useState(false);
+  const [rising, setRising] = useState(false);
   const [position, setPosition] = useState({
     openingValue: 0,
     profitLoss: 0,
@@ -41,6 +43,7 @@ function App() {
     console.log(data);
     setCurrentValue(data[data.length - 1]);
     setTotalTicks((ticks) => ticks + 1);
+    setRising(data[data.length - 1] > data[data.length - 2]);
     if (positionOpen) {
       setPosition((pos) => {
         if (pos.openingValue === 0) {
@@ -137,12 +140,18 @@ function App() {
           />
         </Panel>
         <div className={TableTrayContainer}>
-          <Panel className={InfoContainer}>
-            <span>Current position:</span>
+          <OpenPosition
+            openingValue={position.openingValue}
+            profitLoss={position.profitLoss}
+            currentValue={data[data.length - 1]}
+            rising={rising}
+          />
+          {/* <span>Current position:</span>
             <span>Opening value: {position.openingValue}</span>
             <span>Profit/loss: {position.profitLoss}</span>
-            <strong>Available fiunds: {funds}</strong>
-          </Panel>
+            <span>Total ticks: {totalTicks}</span>
+            <strong>Available fiunds: {funds}</strong> */}
+          <CurrentPrice price={data[data.length - 1]} rising={rising} />
           <div className={ButtonContainer}>
             <Button onClick={onBuy} primary label={'BUY'} />
             <Button onClick={onSell} label={'SELL'} />
@@ -150,23 +159,6 @@ function App() {
         </div>
         <button onClick={started ? stopLoop : startLoop}>Start</button>
       </div>
-
-      {/*
-         <Linechart data={formatData()} staticLines={generateStaticLines()} />
-      <button onClick={started ? stopLoop : startLoop}>Start</button>
-      <button onClick={onBuy}>Buy</button>
-      <button onClick={onSell}>Sell</button>
-      <p>Current value: {currentValue}</p>
-      <p>Total ticks: {totalTicks}</p>
-      {positionOpen && (
-        <>
-          <p>Current position:</p>
-          <p>Opening value: {position.openingValue}</p>
-          <p>Profit/loss: {position.profitLoss}</p>
-        </>
-      )}
-      <strong>Available fiunds: {funds}</strong>
-      */}
     </div>
   );
 }

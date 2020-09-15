@@ -1,0 +1,46 @@
+.Container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px 15px;
+}
+
+.PanelTopbar {
+  width: 100%;
+  height: 40px;
+}
+
+.PanelContent {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.PanelTitle {
+  color: white;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.MetricContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-self: center;
+}
+
+.MetricValue {
+  color: white;
+  font-weight: 300;
+  font-size: 35px;
+  margin-bottom: 5px;
+}
+
+.MetricTitle {
+  color: white;
+  font-weight: 300;
+  font-size: 15px;
+  opacity: 0.5;
+}

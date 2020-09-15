@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Container } from './index.module.css';
+
 import {
   XYPlot,
   YAxis,
@@ -10,7 +12,7 @@ import {
 
 export default ({ data, staticLines = [], refContainer = null }) => {
   return (
-    <div>
+    <div className={Container}>
       <XYPlot
         width={
           refContainer.current &&
@@ -26,17 +28,19 @@ export default ({ data, staticLines = [], refContainer = null }) => {
         <VerticalGridLines /> 
         */}
 
-        <YAxis />
+        <YAxis hideLine tickSize={4} left={15} />
         <LineSeriesCanvas
           className='first-series'
           strokeWidth={4}
+          color={'#46a6f8'}
           curve={'curveMonotoneX'}
           data={data}
         />
         {staticLines.map((lineData) => (
           <LineSeriesCanvas
             className='first-series'
-            strokeWidth={4}
+            strokeWidth={2}
+            color={'#24fbff'}
             curve={'curveMonotoneX'}
             data={lineData}
           />

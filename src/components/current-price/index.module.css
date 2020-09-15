@@ -1,0 +1,31 @@
+.Container {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.LabelContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 15px;
+}
+
+.Label {
+  color: white;
+  font-weight: 300;
+  font-size: 19px;
+}
+
+.Value {
+  color: white;
+  font-weight: 300;
+  font-size: 40px;
+}
+
+.GrowIcon {
+  height: 25px;
+  width: 25px;
+}
