@@ -1,11 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { Container, Primary } from './index.module.css';
+import { Container, Primary, Secondary } from './index.module.css';
 
-export default ({ label, onClick, primary }) => {
+export default ({ label, onClick, primary, secondary }) => {
   return (
-    <button onClick={onClick} className={cn(Container, { [Primary]: primary })}>
+    <button
+      onClick={onClick}
+      className={cn(Container, { [Primary]: primary, [Secondary]: secondary })}
+    >
       {label}
     </button>
   );

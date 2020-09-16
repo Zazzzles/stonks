@@ -43,10 +43,19 @@ body {
   --bg1: #353a66;
   --bg2: #212543;
   --root: #383e6e;
+  --root-dark: #424c90;
   --primary: #46a6f8;
+  --secondary: #794de3;
   --green: #72fb6f;
   --red: #ff2d2d;
 
   --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   --radius: 1em;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
 }

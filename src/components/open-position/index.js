@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Container,
@@ -8,31 +8,17 @@ import {
   MetricTitle,
   MetricValue,
   PanelContent,
-  PlaceholderContainer,
-  PlaceholderText,
-} from './index.module.css'
+} from './index.module.css';
 
-import relDiff from '../../helpers/relDiff'
+import relDiff from '../../helpers/relDiff';
 
-import Panel from '../panel'
+import Panel from '../panel';
 
-export default ({
-  openingValue,
-  profitLoss,
-  currentValue,
-  rising,
-  positionOpen,
-}) => {
-  if (!positionOpen)
-    return (
-      <Panel className={PlaceholderContainer}>
-        <span className={PlaceholderText}>No position open</span>
-      </Panel>
-    )
+export default ({ openingValue, profitLoss, currentValue, rising }) => {
   return (
     <Panel className={Container}>
       <div className={PanelTopbar}>
-        <span className={PanelTitle}>Current Position</span>
+        <span className={PanelTitle}>Current position</span>
       </div>
       <div className={PanelContent}>
         <div className={MetricContainer}>
@@ -51,5 +37,5 @@ export default ({
         </div>
       </div>
     </Panel>
-  )
-}
+  );
+};

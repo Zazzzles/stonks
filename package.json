@@ -10,6 +10,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "react-slider": "^1.0.9",
     "react-vis": "^1.11.7"
   },
   "scripts": {

@@ -1,0 +1,39 @@
+.Container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px 15px;
+}
+
+.ContentWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.AmountContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.DetailsContainer {
+}
+
+.AmountTitle {
+  color: white;
+  font-size: 15px;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.PanelTopbar {
+  width: 100%;
+  height: 40px;
+}
+
+.PanelTitle {
+  color: white;
+  font-weight: 300;
+  font-size: 15px;
+}

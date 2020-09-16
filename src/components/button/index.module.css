@@ -1,5 +1,5 @@
 .Container {
-  height: 60px;
+  height: 100%;
   width: 100%;
   background-color: var(--root);
   box-shadow: var(--shadow);
@@ -7,9 +7,14 @@
   border-radius: var(--radius);
   color: white;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 20px;
   cursor: pointer;
   transition: all 0.2s;
+}
+
+button {
+  outline: none;
+  border: none;
 }
 
 button:active {
@@ -23,4 +28,8 @@ button:hover {
 
 .Primary {
   background-color: var(--primary);
+}
+
+.Secondary {
+  background-color: var(--secondary);
 }
