@@ -15,9 +15,32 @@
 .AmountContainer {
   display: flex;
   flex-direction: column;
+  width: 50%;
+  padding-top: 10px;
 }
 
 .DetailsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 38%;
+}
+
+.Valset {
+  display: flex;
+  flex-direction: column;
+}
+
+.Label {
+  color: white;
+  font-size: 15px;
+  opacity: 0.6;
+}
+
+.Value {
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
 .AmountTitle {
