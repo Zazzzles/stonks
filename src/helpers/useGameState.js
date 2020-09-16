@@ -1,14 +1,7 @@
 import { useState, useEffect } from 'react'
+import config from '../consts/config'
 
-export default (
-  config = {
-    varianceCap: 50,
-    refreshInterval: 100,
-    changeIntervalCap: 10,
-    rollingWindowSize: 200,
-    startingValue: 55600,
-  }
-) => {
+export default () => {
   const [data, setData] = useState([config.startingValue])
   const [currentValue, setCurrentValue] = useState(config.startingValue)
 
@@ -86,7 +79,7 @@ export default (
           }
           return newData
         })
-      }, config.REFRESH_INTERVAL)
+      }, config.refreshInterval)
     )
   }
 

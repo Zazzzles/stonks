@@ -14,12 +14,6 @@ import OpenPosition from './components/open-position'
 
 import useGameState from './helpers/useGameState'
 
-const VARIANCE_CAP = 50 // upper limit of random varaince between tick values
-const REFRESH_INTERVAL = 100 //  interval
-const CHANGE_INTERVAL_CAP = 10 //  Upper limit of change interval size
-const ROLLING_WINDOW_SIZE = 200 //  Amount of data to be displayed
-const STARTING_VALUE = 55600 //  Starting value of stock
-
 function App() {
   const {
     startLoop,
@@ -30,13 +24,7 @@ function App() {
     rising,
     started,
     data,
-  } = useGameState({
-    varianceCap: VARIANCE_CAP,
-    refreshInterval: REFRESH_INTERVAL,
-    changeIntervalCap: CHANGE_INTERVAL_CAP,
-    rollingWindowSize: ROLLING_WINDOW_SIZE,
-    startingValue: STARTING_VALUE,
-  })
+  } = useGameState()
 
   const formatData = () => {
     return data.map((item, index) => ({ x: index, y: item }))
