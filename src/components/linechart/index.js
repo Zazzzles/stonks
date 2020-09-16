@@ -13,7 +13,7 @@ export default ({ data, staticLines = [] }) => {
       {chartContainer.current && (
         <XYPlot
           width={chartContainer.current.getBoundingClientRect().width}
-          height={chartContainer.current.getBoundingClientRect().height + 30}
+          height={chartContainer.current.getBoundingClientRect().height + 25}
         >
           <YAxis hideLine tickSize={4} left={15} />
           <LineSeriesCanvas
@@ -23,8 +23,9 @@ export default ({ data, staticLines = [] }) => {
             curve={'curveMonotoneX'}
             data={data}
           />
-          {staticLines.map((lineData) => (
+          {staticLines.map((lineData, index) => (
             <LineSeriesCanvas
+              key={index}
               className='first-series'
               strokeWidth={2}
               color={'#24fbff'}
