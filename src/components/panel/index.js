@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { forwardRef } from 'react'
 
-import cn from 'classnames';
+import cn from 'classnames'
 
-import { Container } from './index.module.css';
+import { Container } from './index.module.css'
 
-export default ({ className, children, reference }) => {
+export default forwardRef(({ className, children }, ref) => {
   return (
-    <div ref={reference} className={cn(Container, className)}>
+    <div ref={ref} className={cn(Container, className)}>
       {children}
     </div>
-  );
-};
+  )
+})

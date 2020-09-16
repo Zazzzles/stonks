@@ -1,156 +1,141 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react'
 
 import {
   Container,
   ContentWrapper,
-  TableContainer,
   TableTrayContainer,
   ButtonContainer,
-  InfoContainer,
-} from './index.module.css';
+} from './index.module.css'
 
-import Button from './components/button';
-import Panel from './components/panel';
-import Linechart from './components/linechart';
-import CurrentPrice from './components/current-price';
-import OpenPosition from './components/open-position';
+import Button from './components/button'
+import Linechart from './components/linechart'
+import CurrentPrice from './components/current-price'
+import OpenPosition from './components/open-position'
 
-const varianceCap = 50; // upper limit of random varaince between tick values
-const refresh = 100; //  interval
-const changeIntervalCap = 10; //  Upper limit of change interval size
-const rollingWindowsize = 200; //  Amount of data to be displayed
+const VARIANCE_CAP = 50 // upper limit of random varaince between tick values
+const REFRESH_INTERVAL = 100 //  interval
+const CHANGE_INTERVAL_CAP = 10 //  Upper limit of change interval size
+const ROLLING_WINDOW_SIZE = 200 //  Amount of data to be displayed
+const STARTING_VALUE = 55600 //  Starting value of stock
 
 function App() {
-  const chartContainer = useRef();
-  const [data, setData] = useState([55600]);
-  const [started, setStarted] = useState(false);
-  const [currentClock, setCurrentClock] = useState(null);
-  const [currentValue, setCurrentValue] = useState(500);
-  const [totalTicks, setTotalTicks] = useState(0);
-  const [positionOpen, setPositionOpen] = useState(false);
-  const [rising, setRising] = useState(false);
+  const [data, setData] = useState([STARTING_VALUE])
+  const [currentValue, setCurrentValue] = useState(STARTING_VALUE)
+  const [funds, setFunds] = useState(0)
+
+  const [started, setStarted] = useState(false)
+  const [currentClock, setCurrentClock] = useState(null)
+  const [positionOpen, setPositionOpen] = useState(false)
+  const [rising, setRising] = useState(false)
   const [position, setPosition] = useState({
     openingValue: 0,
     profitLoss: 0,
-  });
-  const [funds, setFunds] = useState(0);
+  })
 
   useEffect(() => {
-    return () => clearInterval(currentClock);
-  }, [currentClock]);
+    return () => clearInterval(currentClock)
+  }, [currentClock])
 
   useEffect(() => {
-    console.log(data);
-    setCurrentValue(data[data.length - 1]);
-    setTotalTicks((ticks) => ticks + 1);
-    setRising(data[data.length - 1] > data[data.length - 2]);
+    // console.log(data)
+    setCurrentValue(data[data.length - 1])
+    setRising(data[data.length - 1] > data[data.length - 2])
     if (positionOpen) {
       setPosition((pos) => {
         if (pos.openingValue === 0) {
           return {
             openingValue: currentValue,
             profitLoss: 0,
-          };
+          }
         } else {
           return {
             ...pos,
             profitLoss: currentValue - pos.openingValue,
-          };
+          }
         }
-      });
+      })
     } else {
       setPosition({
         openingValue: 0,
         profitLoss: 0,
-      });
+      })
     }
-  }, [data]);
+  }, [data])
 
   const stopLoop = () => {
-    setStarted(false);
-    clearInterval(currentClock);
-  };
+    setStarted(false)
+    clearInterval(currentClock)
+  }
 
   const startLoop = () => {
-    console.log('Loop starting');
-    let currentInterval = 0;
-    let changeInterval = 10;
-    let shouldGrow = false;
-    setStarted(true);
+    let currentInterval = 0
+    let changeInterval = CHANGE_INTERVAL_CAP
+    let shouldGrow = false
+    setStarted(true)
     setCurrentClock(
       setInterval(() => {
         setData((currentData) => {
-          let newData;
-          let currentPoint = currentData[currentData.length - 1];
-          const variance = Math.floor(Math.random() * varianceCap + 1);
+          let newData
+          let currentPoint = currentData[currentData.length - 1]
+          const variance = Math.floor(Math.random() * VARIANCE_CAP + 1)
           if (currentInterval >= changeInterval) {
-            currentInterval = 0;
-            changeInterval = Math.floor(Math.random() * changeIntervalCap + 1);
-            shouldGrow = Math.floor(Math.random() * 2) === 0;
+            currentInterval = 0
+            changeInterval = Math.floor(Math.random() * CHANGE_INTERVAL_CAP + 1)
+            shouldGrow = Math.floor(Math.random() * 2) === 0
           } else {
-            currentInterval += 1;
+            currentInterval += 1
           }
           if (shouldGrow) {
-            newData = [...currentData, currentPoint + variance];
+            newData = [...currentData, currentPoint + variance]
           } else {
-            newData = [...currentData, currentPoint - variance];
+            newData = [...currentData, currentPoint - variance]
           }
-          if (newData.length > rollingWindowsize + 1) {
-            newData.shift(1);
+          if (newData.length > ROLLING_WINDOW_SIZE + 1) {
+            newData.shift(1)
           }
-          return newData;
-        });
-      }, refresh)
-    );
-  };
+          return newData
+        })
+      }, REFRESH_INTERVAL)
+    )
+  }
 
   const formatData = () => {
-    return data.map((item, index) => ({ x: index, y: item }));
-  };
+    return data.map((item, index) => ({ x: index, y: item }))
+  }
 
   const createStaticLine = (lineIndex) => {
-    return data.map((item, index) => ({ x: index, y: lineIndex }));
-  };
+    return data.map((item, index) => ({ x: index, y: lineIndex }))
+  }
 
   const generateStaticLines = () => {
-    let lines = [];
+    let lines = []
     if (position.openingValue !== 0) {
-      lines.push(createStaticLine(position.openingValue));
+      lines.push(createStaticLine(position.openingValue))
     }
-    return lines;
-  };
+    return lines
+  }
 
   const onBuy = () => {
-    setPositionOpen(true);
-  };
+    setPositionOpen(true)
+  }
 
   const onSell = () => {
-    setFunds((funds) => funds + position.profitLoss);
-    setPositionOpen(false);
-  };
+    setFunds((funds) => funds + position.profitLoss)
+    setPositionOpen(false)
+  }
 
   return (
     <div className={Container}>
       <div className={ContentWrapper}>
-        <Panel className={TableContainer} reference={chartContainer}>
-          <Linechart
-            data={formatData()}
-            staticLines={generateStaticLines()}
-            refContainer={chartContainer}
-          />
-        </Panel>
+        <Linechart data={formatData()} staticLines={generateStaticLines()} />
         <div className={TableTrayContainer}>
           <OpenPosition
+            positionOpen={positionOpen}
             openingValue={position.openingValue}
             profitLoss={position.profitLoss}
             currentValue={data[data.length - 1]}
             rising={rising}
           />
-          {/* <span>Current position:</span>
-            <span>Opening value: {position.openingValue}</span>
-            <span>Profit/loss: {position.profitLoss}</span>
-            <span>Total ticks: {totalTicks}</span>
-            <strong>Available fiunds: {funds}</strong> */}
           <CurrentPrice price={data[data.length - 1]} rising={rising} />
           <div className={ButtonContainer}>
             <Button onClick={onBuy} primary label={'BUY'} />
@@ -160,7 +145,7 @@ function App() {
         <button onClick={started ? stopLoop : startLoop}>Start</button>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

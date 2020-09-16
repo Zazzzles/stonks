@@ -1,51 +1,39 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react'
 
-import { Container } from './index.module.css';
+import { Container } from './index.module.css'
 
-import {
-  XYPlot,
-  YAxis,
-  HorizontalGridLines,
-  VerticalGridLines,
-  LineSeriesCanvas,
-} from 'react-vis';
+import Panel from '../panel'
 
-export default ({ data, staticLines = [], refContainer = null }) => {
+import { XYPlot, YAxis, LineSeriesCanvas } from 'react-vis'
+
+export default ({ data, staticLines = [] }) => {
+  const chartContainer = useRef()
   return (
-    <div className={Container}>
-      <XYPlot
-        width={
-          refContainer.current &&
-          refContainer.current.getBoundingClientRect().width
-        }
-        height={
-          refContainer.current &&
-          refContainer.current.getBoundingClientRect().height + 30
-        }
-      >
-        {/*
-         <HorizontalGridLines />
-        <VerticalGridLines /> 
-        */}
-
-        <YAxis hideLine tickSize={4} left={15} />
-        <LineSeriesCanvas
-          className='first-series'
-          strokeWidth={4}
-          color={'#46a6f8'}
-          curve={'curveMonotoneX'}
-          data={data}
-        />
-        {staticLines.map((lineData) => (
+    <Panel className={Container} ref={chartContainer}>
+      {chartContainer.current && (
+        <XYPlot
+          width={chartContainer.current.getBoundingClientRect().width}
+          height={chartContainer.current.getBoundingClientRect().height + 30}
+        >
+          <YAxis hideLine tickSize={4} left={15} />
           <LineSeriesCanvas
             className='first-series'
-            strokeWidth={2}
-            color={'#24fbff'}
+            strokeWidth={4}
+            color={'#46a6f8'}
             curve={'curveMonotoneX'}
-            data={lineData}
+            data={data}
           />
-        ))}
-      </XYPlot>
-    </div>
-  );
-};
+          {staticLines.map((lineData) => (
+            <LineSeriesCanvas
+              className='first-series'
+              strokeWidth={2}
+              color={'#24fbff'}
+              curve={'curveMonotoneX'}
+              data={lineData}
+            />
+          ))}
+        </XYPlot>
+      )}
+    </Panel>
+  )
+}

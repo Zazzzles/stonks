@@ -6,6 +6,20 @@
   padding: 10px 15px;
 }
 
+.PlaceholderContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PlaceholderText {
+  color: white;
+  font-weight: 300;
+  font-size: 15px;
+  opacity: 0.5;
+}
+
 .PanelTopbar {
   width: 100%;
   height: 40px;
