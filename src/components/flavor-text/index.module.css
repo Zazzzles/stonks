@@ -1,0 +1,17 @@
+.Container {
+  position: absolute;
+  margin-top: 10px;
+  transform: rotate(-50deg);
+}
+
+.Text {
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+.Animating {
+  opacity: 1;
+}

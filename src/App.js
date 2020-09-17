@@ -13,12 +13,19 @@ import CurrentPrice from './components/current-price';
 import OpenPosition from './components/open-position';
 import NewPosition from './components/new-position';
 import Topbar from './components/topbar';
+import FlavorText from './components/flavor-text';
 
 import useGameState from './helpers/useGameState';
 import toFixed from './helpers/toFixed';
 
 function App() {
   const [balance, setBalance] = useState(300000);
+  const [lastPurchase, setLastPurchase] = useState({
+    amount: 0,
+    purchaseValue: 0,
+    openedAt: 0,
+    closedAt: 0,
+  });
   const [purchase, setPurchase] = useState({
     amount: 0,
     purchaseValue: 0,
@@ -70,12 +77,16 @@ function App() {
 
   const onSell = () => {
     setBalance((prevBalance) => prevBalance + getOpenPositionValue());
+    setPositionOpen(false);
+    setLastPurchase({
+      ...purchase,
+      closedAt: currentValue * purchase.amount,
+    });
     setPurchase({
       amount: 0,
       purchaseValue: 0,
       openedAt: 0,
     });
-    setPositionOpen(false);
   };
 
   return (
@@ -107,6 +118,7 @@ function App() {
               secondary={positionOpen}
               label={positionOpen ? 'SELL' : 'BUY'}
             />
+            <FlavorText {...{ positionOpen, lastPurchase }} />
           </div>
           <CurrentPrice price={currentValue} rising={rising} />
         </div>
