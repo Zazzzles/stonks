@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   Container,
@@ -24,14 +24,18 @@ function App() {
 
   const {
     startLoop,
-    stopLoop,
+    // stopLoop,
     setPositionOpen,
     positionOpen,
     position,
     rising,
-    started,
+    //  started,
     data,
   } = useGameState()
+
+  useEffect(() => {
+    startLoop()
+  }, [])
 
   const formatData = () => {
     return data.map((item, index) => ({ x: index, y: item }))
@@ -99,7 +103,9 @@ function App() {
             rising={rising}
           />
         </div>
-        <button onClick={started ? stopLoop : startLoop}>Start</button>
+        {/* 
+         <button onClick={started ? stopLoop : startLoop}>Start</button>
+        */}
       </div>
     </div>
   )
