@@ -15,19 +15,17 @@ import {
 import Panel from '../panel'
 import AmountSlider from '../amount-slider'
 import formatNum from '../../helpers/formatNum'
+import toFixed from '../../helpers/toFixed'
 
 export default ({ currentValue, setPurchase, balance }) => {
-  const [amount, setAmount] = useState(0.5)
-  const updatePurchase = () => {
+  const [amount, setAmount] = useState(1)
+
+  useEffect(() => {
     setPurchase({
       amount,
-      currentValue,
-      purchaseValue: parseInt((amount * currentValue).toFixed(0)),
+      purchaseValue: toFixed(currentValue * amount),
     })
-  }
-  useEffect(() => {
-    updatePurchase()
-  }, [])
+  }, [amount, currentValue, setPurchase])
   return (
     <Panel className={Container}>
       <div className={PanelTopbar}>
@@ -36,17 +34,7 @@ export default ({ currentValue, setPurchase, balance }) => {
       <div className={ContentWrapper}>
         <div className={AmountContainer}>
           <span className={AmountTitle}>Amount of shares</span>
-          <AmountSlider
-            amount={amount}
-            onChange={setAmount}
-            afterChange={() => {
-              setPurchase({
-                amount,
-                currentValue,
-                purchaseValue: parseInt((amount * currentValue).toFixed(0)),
-              })
-            }}
-          />
+          <AmountSlider amount={amount} onChange={setAmount} />
         </div>
         <div className={DetailsContainer}>
           <div className={Valset}>

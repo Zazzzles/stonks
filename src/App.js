@@ -12,11 +12,14 @@ import Linechart from './components/linechart'
 import CurrentPrice from './components/current-price'
 import OpenPosition from './components/open-position'
 import NewPosition from './components/new-position'
+import Topbar from './components/topbar'
+
 import useGameState from './helpers/useGameState'
 import formatNum from './helpers/formatNum'
+import toFixed from './helpers/toFixed'
 
 function App() {
-  const [balance, setBalance] = useState(60000)
+  const [balance, setBalance] = useState(300000)
   const [purchase, setPurchase] = useState({})
 
   const {
@@ -48,16 +51,26 @@ function App() {
 
   const onBuy = () => {
     console.log(purchase)
+    setBalance((prevBalance) => prevBalance - purchase.purchaseValue)
     setPositionOpen(true)
   }
 
   const onSell = () => {
+    const currentPrice = data[data.length - 1]
+    const amount = purchase.amount
+    const shareValue = toFixed(amount * currentPrice)
+    setBalance((prevBalance) => prevBalance + shareValue)
+    setPurchase({
+      amount: 1,
+      purchaseValue: currentPrice,
+    })
     setPositionOpen(false)
   }
 
   return (
     <div className={Container}>
       <div className={ContentWrapper}>
+        <Topbar balance={`$${formatNum(balance)}`} />
         <Linechart data={formatData()} staticLines={generateStaticLines()} />
         <div className={TableTrayContainer}>
           {((props) =>

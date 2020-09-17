@@ -4,16 +4,16 @@ import ReactSlider from 'react-slider'
 
 import { Container, Track, Thumb, Slider, Amount } from './index.module.css'
 
-export default ({ amount, onChange }) => {
+export default ({ amount, ...rest }) => {
   return (
     <div className={Container}>
       <span className={Amount}>{amount}</span>
       <ReactSlider
-        max={1}
-        min={0}
+        max={10}
+        min={1}
         value={amount}
         step={0.1}
-        onChange={onChange}
+        {...rest}
         className={Slider}
         thumbClassName={Thumb}
         trackClassName={Track}
