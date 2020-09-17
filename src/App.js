@@ -15,7 +15,6 @@ import NewPosition from './components/new-position';
 import Topbar from './components/topbar';
 
 import useGameState from './helpers/useGameState';
-import formatNum from './helpers/formatNum';
 import toFixed from './helpers/toFixed';
 
 function App() {
@@ -28,11 +27,10 @@ function App() {
 
   const {
     startLoop,
-    // stopLoop,
     setPositionOpen,
     positionOpen,
     rising,
-    //  started,
+    currentValue,
     data,
   } = useGameState();
 
@@ -83,26 +81,25 @@ function App() {
   return (
     <div className={Container}>
       <div className={ContentWrapper}>
-        <Topbar
-          balance={`$${formatNum(balance)}`}
-          equity={`$${formatNum(getOpenPositionValue())}`}
-        />
+        <Topbar balance={balance} equity={getOpenPositionValue()} />
         <Linechart data={formatData()} staticLines={generateStaticLines()} />
         <div className={TableTrayContainer}>
-          {((props) =>
-            positionOpen ? (
-              <OpenPosition {...props} />
-            ) : (
-              <NewPosition {...props} />
-            ))({
-            openingValue: purchase.purchaseValue,
-            profitLoss:
-              toFixed(purchase.amount * data[data.length - 1]) -
-              purchase.purchaseValue,
-            currentValue: data[data.length - 1],
-            setPurchase,
-            balance,
-          })}
+          {positionOpen ? (
+            <OpenPosition
+              openingValue={purchase.purchaseValue}
+              profitLoss={
+                toFixed(purchase.amount * currentValue) - purchase.purchaseValue
+              }
+              currentValue={currentValue}
+            />
+          ) : (
+            <NewPosition
+              currentValue={currentValue}
+              setPurchase={setPurchase}
+              balance={balance}
+            />
+          )}
+
           <div className={ButtonContainer}>
             <Button
               onClick={positionOpen ? onSell : onBuy}
@@ -111,14 +108,8 @@ function App() {
               label={positionOpen ? 'SELL' : 'BUY'}
             />
           </div>
-          <CurrentPrice
-            price={`$${formatNum(data[data.length - 1])}`}
-            rising={rising}
-          />
+          <CurrentPrice price={currentValue} rising={rising} />
         </div>
-        {/* 
-         <button onClick={started ? stopLoop : startLoop}>Start</button>
-        */}
       </div>
     </div>
   );

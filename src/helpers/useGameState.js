@@ -3,7 +3,7 @@ import config from '../consts/config';
 
 export default () => {
   const [data, setData] = useState([config.startingValue]);
-
+  const [currentValue, setCurrentValue] = useState(config.startingValue);
   const [started, setStarted] = useState(false);
   const [currentClock, setCurrentClock] = useState(null);
   const [positionOpen, setPositionOpen] = useState(false);
@@ -14,6 +14,7 @@ export default () => {
   }, [currentClock]);
 
   useEffect(() => {
+    setCurrentValue(data[data.length - 1]);
     setRising(data[data.length - 1] > data[data.length - 2]);
   }, [data]);
 
@@ -63,6 +64,7 @@ export default () => {
     positionOpen,
     rising,
     started,
+    currentValue,
     data,
   };
 };

@@ -10,6 +10,7 @@ import {
 
 import upArrow from '../../static/icons/arrow_up.png';
 import downArrow from '../../static/icons/arrow_down.png';
+import formatNum from '../../helpers/formatNum';
 
 const Arrow = ({ rising }) => {
   return (
@@ -29,7 +30,7 @@ export default ({ price = 0, rising = false }) => {
         <Arrow rising={rising} />
       </div>
 
-      <span className={Value}>{price}</span>
+      <span className={Value}>${formatNum(price)}</span>
     </div>
   );
 };
