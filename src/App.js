@@ -1,80 +1,92 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 import {
   Container,
   ContentWrapper,
   TableTrayContainer,
   ButtonContainer,
-} from './index.module.css'
+} from './index.module.css';
 
-import Button from './components/button'
-import Linechart from './components/linechart'
-import CurrentPrice from './components/current-price'
-import OpenPosition from './components/open-position'
-import NewPosition from './components/new-position'
-import Topbar from './components/topbar'
+import Button from './components/button';
+import Linechart from './components/linechart';
+import CurrentPrice from './components/current-price';
+import OpenPosition from './components/open-position';
+import NewPosition from './components/new-position';
+import Topbar from './components/topbar';
 
-import useGameState from './helpers/useGameState'
-import formatNum from './helpers/formatNum'
-import toFixed from './helpers/toFixed'
+import useGameState from './helpers/useGameState';
+import formatNum from './helpers/formatNum';
+import toFixed from './helpers/toFixed';
 
 function App() {
-  const [balance, setBalance] = useState(300000)
-  const [purchase, setPurchase] = useState({})
+  const [balance, setBalance] = useState(300000);
+  const [purchase, setPurchase] = useState({
+    amount: 0,
+    purchaseValue: 0,
+    openedAt: 0,
+  });
 
   const {
     startLoop,
     // stopLoop,
     setPositionOpen,
     positionOpen,
-    position,
     rising,
     //  started,
     data,
-  } = useGameState()
+  } = useGameState();
 
   useEffect(() => {
-    startLoop()
-  }, [])
+    startLoop();
+  }, []);
 
   const formatData = () => {
-    return data.map((item, index) => ({ x: index, y: item }))
-  }
+    return data.map((item, index) => ({ x: index, y: item }));
+  };
 
   const createStaticLine = (lineIndex) => {
-    return data.map((_, index) => ({ x: index, y: lineIndex }))
-  }
+    return data.map((_, index) => ({ x: index, y: lineIndex }));
+  };
 
   const generateStaticLines = () => {
-    let lines = []
-    if (position.openingValue !== 0) {
-      lines.push(createStaticLine(position.openingValue))
+    let lines = [];
+    if (positionOpen) {
+      lines.push(createStaticLine(purchase.openedAt));
     }
-    return lines
-  }
+    return lines;
+  };
 
   const onBuy = () => {
-    console.log(purchase)
-    setBalance((prevBalance) => prevBalance - purchase.purchaseValue)
-    setPositionOpen(true)
-  }
+    setBalance((prevBalance) => prevBalance - purchase.purchaseValue);
+    setPositionOpen(true);
+  };
+
+  const getOpenPositionValue = () => {
+    if (positionOpen) {
+      const currentPrice = data[data.length - 1];
+      const amount = purchase.amount;
+      return toFixed(amount * currentPrice);
+    }
+    return 0;
+  };
 
   const onSell = () => {
-    const currentPrice = data[data.length - 1]
-    const amount = purchase.amount
-    const shareValue = toFixed(amount * currentPrice)
-    setBalance((prevBalance) => prevBalance + shareValue)
+    setBalance((prevBalance) => prevBalance + getOpenPositionValue());
     setPurchase({
-      amount: 1,
-      purchaseValue: currentPrice,
-    })
-    setPositionOpen(false)
-  }
+      amount: 0,
+      purchaseValue: 0,
+      openedAt: 0,
+    });
+    setPositionOpen(false);
+  };
 
   return (
     <div className={Container}>
       <div className={ContentWrapper}>
-        <Topbar balance={`$${formatNum(balance)}`} />
+        <Topbar
+          balance={`$${formatNum(balance)}`}
+          equity={`$${formatNum(getOpenPositionValue())}`}
+        />
         <Linechart data={formatData()} staticLines={generateStaticLines()} />
         <div className={TableTrayContainer}>
           {((props) =>
@@ -83,10 +95,11 @@ function App() {
             ) : (
               <NewPosition {...props} />
             ))({
-            openingValue: position.openingValue,
-            profitLoss: position.profitLoss,
+            openingValue: purchase.purchaseValue,
+            profitLoss:
+              toFixed(purchase.amount * data[data.length - 1]) -
+              purchase.purchaseValue,
             currentValue: data[data.length - 1],
-            rising,
             setPurchase,
             balance,
           })}
@@ -108,7 +121,7 @@ function App() {
         */}
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

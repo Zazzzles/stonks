@@ -1,6 +1,26 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.TextContainer {
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+}
+
 .Value {
   color: white;
   font-weight: 600;
   font-size: 30px;
   margin-bottom: 10px;
+}
+
+.Label {
+  color: white;
+  font-size: 15px;
+  font-weight: 300;
+  opacity: 0.6;
+  margin-bottom: 5px;
 }

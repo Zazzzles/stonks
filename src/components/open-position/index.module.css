@@ -15,7 +15,6 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: space-evenly;
 }
 
 .PanelTitle {
@@ -29,6 +28,7 @@
   align-items: center;
   flex-direction: column;
   justify-self: center;
+  width: 33%;
 }
 
 .MetricValue {
@@ -43,4 +43,12 @@
   font-weight: 300;
   font-size: 15px;
   opacity: 0.5;
+}
+
+.Bad {
+  color: var(--red);
+}
+
+.Good {
+  color: var(--green);
 }

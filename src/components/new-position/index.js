@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 import {
   Container,
@@ -11,21 +11,22 @@ import {
   Valset,
   Label,
   Value,
-} from './index.module.css'
-import Panel from '../panel'
-import AmountSlider from '../amount-slider'
-import formatNum from '../../helpers/formatNum'
-import toFixed from '../../helpers/toFixed'
+} from './index.module.css';
+import Panel from '../panel';
+import AmountSlider from '../amount-slider';
+import formatNum from '../../helpers/formatNum';
+import toFixed from '../../helpers/toFixed';
 
 export default ({ currentValue, setPurchase, balance }) => {
-  const [amount, setAmount] = useState(1)
+  const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     setPurchase({
       amount,
       purchaseValue: toFixed(currentValue * amount),
-    })
-  }, [amount, currentValue, setPurchase])
+      openedAt: currentValue,
+    });
+  }, [amount, currentValue, setPurchase]);
   return (
     <Panel className={Container}>
       <div className={PanelTopbar}>
@@ -52,5 +53,5 @@ export default ({ currentValue, setPurchase, balance }) => {
         </div>
       </div>
     </Panel>
-  )
-}
+  );
+};

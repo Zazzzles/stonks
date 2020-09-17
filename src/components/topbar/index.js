@@ -1,11 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { Container, Value } from './index.module.css'
+import { Container, TextContainer, Value, Label } from './index.module.css';
 
-export default ({ balance }) => {
+export default ({ balance, equity }) => {
   return (
-    <div>
-      <span className={Value}>{balance}</span>
+    <div className={Container}>
+      <div className={TextContainer}>
+        <span className={Label}>Available balance</span>
+        <span className={Value}>{balance}</span>
+      </div>
+      <div className={TextContainer}>
+        <span className={Label}>Equity</span>
+        <span className={Value}>{equity}</span>
+      </div>
     </div>
-  )
-}
+  );
+};
