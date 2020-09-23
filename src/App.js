@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 import {
   Container,
   ContentWrapper,
   TableTrayContainer,
   ButtonContainer,
-} from './index.module.css';
+} from './index.module.css'
 
-import Button from './components/button';
-import Linechart from './components/linechart';
-import CurrentPrice from './components/current-price';
-import OpenPosition from './components/open-position';
-import NewPosition from './components/new-position';
-import Topbar from './components/topbar';
-import FlavorText from './components/flavor-text';
+import Button from './components/button'
+import Linechart from './components/linechart'
+import CurrentPrice from './components/current-price'
+import OpenPosition from './components/open-position'
+import NewPosition from './components/new-position'
+import Topbar from './components/topbar'
+import FlavorText from './components/flavor-text'
+import PurchaseHistory from './components/purchase-history'
 
-import useGameState from './helpers/useGameState';
-import toFixed from './helpers/toFixed';
+import useGameState from './helpers/useGameState'
+import toFixed from './helpers/toFixed'
 
 function App() {
-  const [balance, setBalance] = useState(300000);
+  const [balance, setBalance] = useState(300000)
   const [lastPurchase, setLastPurchase] = useState({
     amount: 0,
     purchaseValue: 0,
     openedAt: 0,
     closedAt: 0,
-  });
+  })
   const [purchase, setPurchase] = useState({
     amount: 0,
     purchaseValue: 0,
     openedAt: 0,
-  });
+  })
+
+  const [purchaseHistory, setPurchaseHistory] = useState([])
 
   const {
     startLoop,
@@ -39,55 +42,71 @@ function App() {
     rising,
     currentValue,
     data,
-  } = useGameState();
+  } = useGameState()
 
   useEffect(() => {
-    startLoop();
-  }, []);
+    startLoop()
+  }, [])
 
   const formatData = () => {
-    return data.map((item, index) => ({ x: index, y: item }));
-  };
+    return data.map((item, index) => ({ x: index, y: item }))
+  }
 
   const createStaticLine = (lineIndex) => {
-    return data.map((_, index) => ({ x: index, y: lineIndex }));
-  };
+    return data.map((_, index) => ({ x: index, y: lineIndex }))
+  }
 
   const generateStaticLines = () => {
-    let lines = [];
+    let lines = []
     if (positionOpen) {
-      lines.push(createStaticLine(purchase.openedAt));
+      lines.push(createStaticLine(purchase.openedAt))
     }
-    return lines;
-  };
+    return lines
+  }
 
   const onBuy = () => {
-    setBalance((prevBalance) => prevBalance - purchase.purchaseValue);
-    setPositionOpen(true);
-  };
+    setBalance((prevBalance) => prevBalance - purchase.purchaseValue)
+    setPositionOpen(true)
+  }
 
   const getOpenPositionValue = () => {
     if (positionOpen) {
-      const currentPrice = data[data.length - 1];
-      const amount = purchase.amount;
-      return toFixed(amount * currentPrice);
+      const currentPrice = data[data.length - 1]
+      const amount = purchase.amount
+      return toFixed(amount * currentPrice)
     }
-    return 0;
-  };
+    return 0
+  }
 
   const onSell = () => {
-    setBalance((prevBalance) => prevBalance + getOpenPositionValue());
-    setPositionOpen(false);
+    setBalance((prevBalance) => prevBalance + getOpenPositionValue())
+    setPositionOpen(false)
     setLastPurchase({
       ...purchase,
       closedAt: currentValue * purchase.amount,
-    });
+    })
+
+    console.log({
+      ...purchase,
+      closedAt: currentValue * purchase.amount,
+      positive: purchase.purchaseValue < currentValue * purchase.amount,
+    })
+
+    setPurchaseHistory([
+      {
+        ...purchase,
+        closedAt: currentValue * purchase.amount,
+        positive: purchase.purchaseValue < currentValue * purchase.amount,
+      },
+      ...purchaseHistory,
+    ])
+
     setPurchase({
       amount: 0,
       purchaseValue: 0,
       openedAt: 0,
-    });
-  };
+    })
+  }
 
   return (
     <div className={Container}>
@@ -122,9 +141,10 @@ function App() {
           </div>
           <CurrentPrice price={currentValue} rising={rising} />
         </div>
+        <PurchaseHistory purchaseItems={purchaseHistory} />
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
