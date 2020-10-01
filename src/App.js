@@ -33,8 +33,6 @@ function App() {
     openedAt: 0,
   });
 
-  console.log('test');
-
   const [purchaseHistory, setPurchaseHistory] = useState([]);
 
   const {
