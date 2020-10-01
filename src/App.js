@@ -15,7 +15,6 @@ import NewPosition from './components/new-position';
 import Topbar from './components/topbar';
 import FlavorText from './components/flavor-text';
 import PurchaseHistory from './components/purchase-history';
-
 import useGameState from './helpers/useGameState';
 import toFixed from './helpers/toFixed';
 
