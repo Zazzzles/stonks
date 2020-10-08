@@ -15,24 +15,22 @@ import NewPosition from './components/new-position';
 import Topbar from './components/topbar';
 import FlavorText from './components/flavor-text';
 import PurchaseHistory from './components/purchase-history';
-import useGameState from './helpers/useGameState';
+
 import toFixed from './helpers/toFixed';
+
+import useGameState from './states/useGameState';
+import usePurchaseState from './states/usePurchaseState';
 
 function App() {
   const [balance, setBalance] = useState(300000);
-  const [lastPurchase, setLastPurchase] = useState({
-    amount: 0,
-    purchaseValue: 0,
-    openedAt: 0,
-    closedAt: 0,
-  });
-  const [purchase, setPurchase] = useState({
-    amount: 0,
-    purchaseValue: 0,
-    openedAt: 0,
-  });
 
-  const [purchaseHistory, setPurchaseHistory] = useState([]);
+  const {
+    doSell,
+    setPurchase,
+    lastPurchase,
+    purchase,
+    purchaseHistory,
+  } = usePurchaseState();
 
   const {
     startLoop,
@@ -47,18 +45,10 @@ function App() {
     startLoop();
   }, []);
 
-  const formatData = () => {
-    return data.map((item, index) => ({ x: index, y: item }));
-  };
-
-  const createStaticLine = (lineIndex) => {
-    return data.map((_, index) => ({ x: index, y: lineIndex }));
-  };
-
   const generateStaticLines = () => {
     let lines = [];
     if (positionOpen) {
-      lines.push(createStaticLine(purchase.openedAt));
+      lines.push(purchase.openedAt);
     }
     return lines;
   };
@@ -80,47 +70,17 @@ function App() {
   const onSell = () => {
     setBalance((prevBalance) => prevBalance + getOpenPositionValue());
     setPositionOpen(false);
-    setLastPurchase({
-      ...purchase,
-      closedAt: currentValue * purchase.amount,
-    });
-
-    console.log({
-      ...purchase,
-      closedAt: currentValue * purchase.amount,
-      positive: purchase.purchaseValue < currentValue * purchase.amount,
-    });
-
-    setPurchaseHistory([
-      {
-        ...purchase,
-        closedAt: currentValue * purchase.amount,
-        positive: purchase.purchaseValue < currentValue * purchase.amount,
-      },
-      ...purchaseHistory,
-    ]);
-
-    setPurchase({
-      amount: 0,
-      purchaseValue: 0,
-      openedAt: 0,
-    });
+    doSell(currentValue);
   };
 
   return (
     <div className={Container}>
       <div className={ContentWrapper}>
         <Topbar balance={balance} equity={getOpenPositionValue()} />
-        <Linechart data={formatData()} staticLines={generateStaticLines()} />
+        <Linechart data={data} staticLines={generateStaticLines()} />
         <div className={TableTrayContainer}>
           {positionOpen ? (
-            <OpenPosition
-              openingValue={purchase.purchaseValue}
-              profitLoss={
-                toFixed(purchase.amount * currentValue) - purchase.purchaseValue
-              }
-              currentValue={currentValue}
-            />
+            <OpenPosition purchase={purchase} currentValue={currentValue} />
           ) : (
             <NewPosition
               currentValue={currentValue}

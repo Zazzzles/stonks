@@ -1,13 +1,26 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react';
 
-import { Container } from './index.module.css'
+import { Container } from './index.module.css';
 
-import Panel from '../panel'
+import Panel from '../panel';
 
-import { XYPlot, YAxis, LineSeriesCanvas } from 'react-vis'
+import { XYPlot, YAxis, LineSeriesCanvas } from 'react-vis';
 
 export default ({ data, staticLines = [] }) => {
-  const chartContainer = useRef()
+  const chartContainer = useRef();
+
+  const createStaticLine = (lineIndex) => {
+    return data.map((_, index) => ({ x: index, y: lineIndex }));
+  };
+
+  const generateStaticLines = () => {
+    return staticLines.map(createStaticLine);
+  };
+
+  const formatData = () => {
+    return data.map((item, index) => ({ x: index, y: item }));
+  };
+
   return (
     <Panel className={Container} ref={chartContainer}>
       {chartContainer.current && (
@@ -21,9 +34,9 @@ export default ({ data, staticLines = [] }) => {
             strokeWidth={4}
             color={'#46a6f8'}
             curve={'curveMonotoneX'}
-            data={data}
+            data={formatData()}
           />
-          {staticLines.map((lineData, index) => (
+          {generateStaticLines().map((lineData, index) => (
             <LineSeriesCanvas
               key={index}
               className='first-series'
@@ -36,5 +49,5 @@ export default ({ data, staticLines = [] }) => {
         </XYPlot>
       )}
     </Panel>
-  )
-}
+  );
+};

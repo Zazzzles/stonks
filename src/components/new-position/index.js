@@ -11,6 +11,7 @@ import {
   Valset,
   Label,
   Value,
+  CostValue,
 } from './index.module.css';
 import Panel from '../panel';
 import AmountSlider from '../amount-slider';
@@ -40,7 +41,7 @@ export default ({ currentValue, setPurchase, balance }) => {
         <div className={DetailsContainer}>
           <div className={Valset}>
             <span className={Label}>Cost</span>
-            <span className={Value}>
+            <span className={CostValue}>
               ${formatNum((amount * currentValue).toFixed(0))}
             </span>
           </div>

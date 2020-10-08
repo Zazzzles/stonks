@@ -16,11 +16,12 @@ import {
 
 import relDiff from '../../helpers/relDiff';
 import formatNum from '../../helpers/formatNum';
+import toFixed from '../../helpers/toFixed';
 
 import Panel from '../panel';
 
-export default ({ openingValue, profitLoss, currentValue }) => {
-  const netPositive = openingValue < currentValue;
+export default ({ purchase, currentValue }) => {
+  const netPositive = purchase.purchaseValue < currentValue;
   return (
     <Panel className={Container}>
       <div className={PanelTopbar}>
@@ -28,7 +29,9 @@ export default ({ openingValue, profitLoss, currentValue }) => {
       </div>
       <div className={PanelContent}>
         <div className={MetricContainer}>
-          <span className={MetricValue}>${formatNum(openingValue)}</span>
+          <span className={MetricValue}>
+            ${formatNum(purchase.purchaseValue)}
+          </span>
           <span className={MetricTitle}>Opening value</span>
         </div>
         <div className={MetricContainer}>
@@ -38,7 +41,10 @@ export default ({ openingValue, profitLoss, currentValue }) => {
               [Good]: netPositive,
             })}
           >
-            ${formatNum(profitLoss)}
+            $
+            {formatNum(
+              toFixed(purchase.amount * currentValue) - purchase.purchaseValue
+            )}
           </span>
           <span className={MetricTitle}>Profit/loss</span>
         </div>
@@ -50,7 +56,10 @@ export default ({ openingValue, profitLoss, currentValue }) => {
             })}
           >
             {!netPositive && '-'} %
-            {relDiff(openingValue, currentValue).toFixed(0)}
+            {relDiff(
+              purchase.purchaseValue,
+              currentValue * purchase.amount
+            ).toFixed(0)}
           </span>
           <span className={MetricTitle}>% change</span>
         </div>
