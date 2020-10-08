@@ -21,6 +21,8 @@ import toFixed from './helpers/toFixed';
 import useGameState from './states/useGameState';
 import usePurchaseState from './states/usePurchaseState';
 
+//  TODO: Add combos
+
 function App() {
   const [balance, setBalance] = useState(300000);
 
