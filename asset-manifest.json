@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/stonks/static/css/main.836c9f04.chunk.css",
+    "main.js": "/stonks/static/js/main.beb8c932.chunk.js",
+    "main.js.map": "/stonks/static/js/main.beb8c932.chunk.js.map",
+    "runtime-main.js": "/stonks/static/js/runtime-main.e5b7e780.js",
+    "runtime-main.js.map": "/stonks/static/js/runtime-main.e5b7e780.js.map",
+    "static/js/2.9f33eb80.chunk.js": "/stonks/static/js/2.9f33eb80.chunk.js",
+    "static/js/2.9f33eb80.chunk.js.map": "/stonks/static/js/2.9f33eb80.chunk.js.map",
+    "index.html": "/stonks/index.html",
+    "precache-manifest.6e3936233fad295265da4bbc38ac6ca9.js": "/stonks/precache-manifest.6e3936233fad295265da4bbc38ac6ca9.js",
+    "service-worker.js": "/stonks/service-worker.js",
+    "static/css/main.836c9f04.chunk.css.map": "/stonks/static/css/main.836c9f04.chunk.css.map",
+    "static/js/2.9f33eb80.chunk.js.LICENSE.txt": "/stonks/static/js/2.9f33eb80.chunk.js.LICENSE.txt",
+    "static/media/base.css": "/stonks/static/media/Gilroy-Regular.c6dd5cb7.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e5b7e780.js",
+    "static/js/2.9f33eb80.chunk.js",
+    "static/css/main.836c9f04.chunk.css",
+    "static/js/main.beb8c932.chunk.js"
+  ]
+}
