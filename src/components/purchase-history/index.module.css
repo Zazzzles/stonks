@@ -31,8 +31,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow-y: scroll;
   height: 200px;
+}
+
+.PurchaseItemsWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .PurchaseItem {
