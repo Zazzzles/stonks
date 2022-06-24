@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/stonks/static/css/main.836c9f04.chunk.css",
-    "main.js": "/stonks/static/js/main.beb8c932.chunk.js",
-    "main.js.map": "/stonks/static/js/main.beb8c932.chunk.js.map",
+    "main.js": "/stonks/static/js/main.43aea96c.chunk.js",
+    "main.js.map": "/stonks/static/js/main.43aea96c.chunk.js.map",
     "runtime-main.js": "/stonks/static/js/runtime-main.e5b7e780.js",
     "runtime-main.js.map": "/stonks/static/js/runtime-main.e5b7e780.js.map",
     "static/js/2.9f33eb80.chunk.js": "/stonks/static/js/2.9f33eb80.chunk.js",
     "static/js/2.9f33eb80.chunk.js.map": "/stonks/static/js/2.9f33eb80.chunk.js.map",
     "index.html": "/stonks/index.html",
-    "precache-manifest.6e3936233fad295265da4bbc38ac6ca9.js": "/stonks/precache-manifest.6e3936233fad295265da4bbc38ac6ca9.js",
+    "precache-manifest.ffcff0b0fb97b0a1ba40784f7725aca7.js": "/stonks/precache-manifest.ffcff0b0fb97b0a1ba40784f7725aca7.js",
     "service-worker.js": "/stonks/service-worker.js",
     "static/css/main.836c9f04.chunk.css.map": "/stonks/static/css/main.836c9f04.chunk.css.map",
     "static/js/2.9f33eb80.chunk.js.LICENSE.txt": "/stonks/static/js/2.9f33eb80.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.e5b7e780.js",
     "static/js/2.9f33eb80.chunk.js",
     "static/css/main.836c9f04.chunk.css",
-    "static/js/main.beb8c932.chunk.js"
+    "static/js/main.43aea96c.chunk.js"
   ]
 }
