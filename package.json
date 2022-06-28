@@ -19,8 +19,7 @@
     "build": "react-scripts build",
     "deploy": "gh-pages -d docs",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "update": "git add . && git commit -m 'Update' && git push origin master"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
